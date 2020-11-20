@@ -1,0 +1,3 @@
+[submodule "submodules/aws-content-analysis"]
+	path = submodules/aws-content-analysis
+	url = git@github.com:awslabs/aws-content-analysis.git
