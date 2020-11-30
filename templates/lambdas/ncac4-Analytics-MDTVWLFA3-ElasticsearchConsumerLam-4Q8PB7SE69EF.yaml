@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  ncac4AnalyticsMDTVWLFA3ElasticsearchConsumerLam4Q8PB7SE69EF:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: lambda_handler.lambda_handler
+      Runtime: python3.7
+      CodeUri: .
+      Description: ''
+      MemorySize: 2048
+      Timeout: 900
+      Role: >-
+        arn:aws:iam::618073820465:role/ncac4-Analytics-MDTVWLFA3VP4-E-ElasticConsumerRole-18T3LEDAHBH0G
+      Events:
+        Kinesis1:
+          Type: Kinesis
+          Properties:
+            Stream:
+              'Fn::GetAtt':
+                - KinesisStream1
+                - Arn
+            StartingPosition: LATEST
+            BatchSize: 100
+      Environment:
+        Variables:
+          DataplaneBucket: ncac4-dataplane-7acjdcwp9ni2
+          EsEndpoint: search-mie-es2-rfohtwnx6bry3ijcb6dhzeb6a4.us-west-2.es.amazonaws.com
+  KinesisStream1:
+    Type: 'AWS::Kinesis::Stream'
+    Properties:
+      ShardCount: 1

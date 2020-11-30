@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  ncac4startLabelDetection1EBTK6L3KQFIJ:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: start_label_detection.lambda_handler
+      Runtime: python3.7
+      CodeUri: .
+      Description: ''
+      MemorySize: 128
+      Timeout: 20
+      Role: 'arn:aws:iam::618073820465:role/ncac4-rekognitionLambdaRole-FN4KW0XGDKW1'
+      Environment:
+        Variables:
+          DATAPLANE_BUCKET: ncac4-dataplane-7acjdcwp9ni2
+          DataplaneEndpoint: ncac4-MediaInsightsDataplaneApiStack-J1-APIHandler-1FKJYE3L4Z6ND
+          OPERATOR_NAME: labelDetection
+          REKOGNITION_ROLE_ARN: >-
+            arn:aws:iam::618073820465:role/ncac4-rekognitionSNSRole-1RSKH4NKC32PS
+          REKOGNITION_SNS_TOPIC_ARN: >-
+            arn:aws:sns:us-west-2:618073820465:ncac4-snsRekognitionTopic-1V9H5QLTOEA2D
+          botoConfig: '{"user_agent": "AwsSolution/SO0042/v1.0.2"}'
+      Layers:
+        - >-
+          arn:aws:lambda:us-west-2:618073820465:layer:media-insights-engine-python37:5
